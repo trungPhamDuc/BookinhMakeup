@@ -1,0 +1,56 @@
+﻿@page
+@model www_Blush_Brush.Pages.Chat.IndexModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<h2>@ViewData["Title"]</h2>
+
+<div style="display: flex; flex-direction: column; height: 100%;">
+    <div id="chatContainer" style="flex: 1; overflow-y: auto; padding: 10px; background-color: #f8f8f8;">
+        @foreach (var message in Model.ConversationHistory)
+        {
+            var isUser = message.Role == "user";
+            <div style="margin-bottom: 10px; text-align:@(isUser ? "right" : "left")">
+                <div style="display: inline-block; padding: 10px; border-radius: 10px; background-color:@(isUser ? "#d1e7dd" : "#e2e3e5"); max-width: 60%">
+                    <strong>@(isUser ? "Bạn" : "B&B"):</strong><br />
+                    @message.Text
+                </div>
+            </div>
+        }
+    </div>
+
+    <form method="post" style="padding: 10px; border-top: 1px solid #ccc; background-color: #fff;">
+    <textarea name="UserInput"
+              rows="3"
+              placeholder="Nhập câu hỏi của bạn..."
+              style="width: 100%; padding: 12px 14px; font-size: 15px; border-radius: 8px; border: 1px solid #ccc; resize: none; outline: none;">@Model.UserInput</textarea>
+
+    @for (int i = 0; i < Model.ConversationHistory.Count; i++)
+    {
+        <input type="hidden" name="ConversationHistory[@i].Role" value="@Model.ConversationHistory[i].Role" />
+        <input type="hidden" name="ConversationHistory[@i].Text" value="@Model.ConversationHistory[i].Text" />
+    }
+    </form> 
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const textarea = document.querySelector('textarea[name="UserInput"]');
+        const form = document.querySelector('form');
+
+        textarea.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                form.submit();
+            }
+        });
+
+        const chatContainer = document.getElementById("chatContainer");
+        if (chatContainer) {
+            chatContainer.scrollTo({
+                top: chatContainer.scrollHeight,
+                behavior: 'smooth'
+            });
+        }
+    });
+</script>
+

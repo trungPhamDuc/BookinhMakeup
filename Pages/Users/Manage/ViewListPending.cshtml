@@ -1,0 +1,66 @@
+﻿@page
+@model www_Blush_Brush.Pages.Users.Manage.ViewListPendingModel
+@{
+}
+
+@{
+    ViewData["Title"] = "User Management";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/site.css" />
+
+<style>
+    .btn-create {
+        display: inline-block;
+        background-color: #007bff;
+        color: white;
+        padding: 10px 15px;
+        text-decoration: none;
+        border-radius: 5px;
+        margin-right: 10px;
+    }
+
+</style>
+<div class="user-management-container" style="display: flex; gap: 2rem;">
+    <!-- RIGHT: User Table -->
+    <div class="user-table" style="flex-grow: 1;">
+        <h2>Artist List</h2>
+
+        <p>
+            <a asp-page="Create" class="btn-create">Create New</a>
+            <a asp-page="ViewListPending" class="btn-create">Artist Pending</a>
+        </p>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Experience</th>
+                    <th>Location</th>
+                    <th>Bio</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.ArtistPending)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.User.Name)</td>
+                        <td>@Html.DisplayFor(modelItem => item.User.Email)</td>
+                        <td>@Html.DisplayFor(modelItem => item.User.Phone)</td>
+                        <td>   @Html.DisplayFor(modelItem => item.Experience)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Location)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Bio)</td>
+                        <td>
+                            <a asp-page="#" asp-route-id="@item.Id" class="btn-details">Accept</a>
+                            <a asp-page="#" asp-route-id="@item.Id" class="btn-delete">Reject</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

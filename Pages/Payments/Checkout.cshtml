@@ -1,0 +1,10 @@
+﻿@page
+@model www_Blush_Brush.Pages.Payments.CheckoutModel
+@{
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Error"]
+    </div>
+}

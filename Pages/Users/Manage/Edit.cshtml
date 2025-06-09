@@ -1,0 +1,80 @@
+﻿@page
+@model www_Blush_Brush.Pages.Users.Manage.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/css/site.css" />
+<h1>Edit</h1>
+
+<h4>User</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="User.Id" />
+            <div class="form-group">
+                <label asp-for="User.Name" class="control-label"></label>
+                <input asp-for="User.Name" class="form-control" readonly />
+                <span asp-validation-for="User.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="User.Email" class="control-label"></label>
+                <input asp-for="User.Email" class="form-control" readonly />
+                <span asp-validation-for="User.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="User.Phone" class="control-label"></label>
+                <input asp-for="User.Phone" class="form-control" readonly />
+                <span asp-validation-for="User.Phone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="User.Password" class="control-label"></label>
+                <input asp-for="User.Password" class="form-control" readonly />
+                <span asp-validation-for="User.Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="User.Role" class="control-label"></label>
+                <select asp-for="User.Role" class="form-control" asp-items="Model.RoleList"></select>
+                <span asp-validation-for="User.Role" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="User.AvatarUrl" class="control-label"></label>
+                <input asp-for="User.AvatarUrl" class="form-control" readonly />
+                <span asp-validation-for="User.AvatarUrl" class="text-danger"></span>
+            </div>
+            @* <div class="form-group">
+                <label asp-for="User.IsActive" class="control-label"></label>
+                <input asp-for="User.IsActive" class="form-control" />
+                <span asp-validation-for="User.IsActive" class="text-danger"></span>
+            </div> *@
+
+            <div class="form-group">
+                <label asp-for="User.IsActive" class="control-label"></label>
+                <select asp-for="User.IsActive" class="form-control">
+                    <option value="true">True</option>
+                    <option value="false">False</option>
+                </select>
+                <span asp-validation-for="User.IsActive" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="User.CreatedAt" class="control-label"></label>
+                <input asp-for="User.CreatedAt" class="form-control" readonly />
+                <span asp-validation-for="User.CreatedAt" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

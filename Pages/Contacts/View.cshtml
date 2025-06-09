@@ -1,0 +1,173 @@
+﻿@page
+@model www_Blush_Brush.Pages.Contacts.ViewModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<!
+<!DOCTYPE html>
+<html class="wide wow-animation" lang="en">
+
+<head>
+    <title>Về chúng tôi - giới thiệu dịch vụ của chúng tôi</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" href="~/images/favicon2.ico" sizes="128x128" type="image/x-icon">
+    <link rel="stylesheet" type="text/css"
+          href="//fonts.googleapis.com/css?family=DM+Sans:400,400i,500,500i,700,700i&amp;display=swap">
+    <link href="~/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/css/fonts.css" rel="stylesheet" />
+    <link href="~/css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- AOS CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+
+    <style>
+        .ie-panel {
+            display: none;
+            background: #212121;
+            padding: 10px 0;
+            box-shadow: 3px 3px 5px 0 rgba(0, 0, 0, .3);
+            clear: both;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        html.ie-10 .ie-panel,
+        html.lt-ie-10 .ie-panel {
+            display: block;
+        }
+    </style>
+</head>
+
+<!-- AOS JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+      AOS.init({
+        duration: 3000, // Thời gian chạy hiệu ứng (2 giây)
+        delay: 300, // Độ trễ trước khi hiệu ứng bắt đầu (300ms)
+        once: false // Cho phép hiệu ứng chạy lại khi kéo trang
+      });
+    });
+</script>
+
+<body>
+    <div class="ie-panel">
+        <a href="http://windows.microsoft.com/en-US/internet-explorer/">
+            <img src="images/ie8-panel/warning_bar_0000_us.jpg" height="42" width="820"
+                 alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today.">
+        </a>
+    </div>
+    <div class="preloader">
+        <div class="preloader-body">
+            <div class="cssload-container">
+                <div class="cssload-speeding-wheel"></div>
+            </div>
+            <p>Loading...</p>
+        </div>
+    </div>
+    <div class="page">
+        <header class="section page-header">
+            @await Html.PartialAsync("Partial/HeaderPartial")
+        </header>
+        <div class="section section-lg bg-secondary">
+            <div class="container">
+                <div class="text-center">
+                    <h1>Blush&Brush</h1>
+                    <div class="subtitle-2" style="font-weight: 700;">
+                        Thăng hạng nhan sắc - đặt trong tích tắc
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section section-lg bg-default">
+            <div class="container">
+                <div class="about-wrap">
+                    <div class="subtitle">Một vài dòng về Blush&Brush</div>
+                    <div class="row row-sm-30" data-aos="fade-up">
+                        <p class="text-center" style="font-family: 'Roboto', Arial, sans-serif;">
+                            Blush&Brush mang đến niềm tin cho
+                            khách hàng từ những
+                            dịch vụ mà chúng tôi đã cung cấp, trang điểm Makeup tại nhà chính là một trong những dịch vụ hàng đầu
+                            của chúng tôi
+                        </p>
+                    </div>
+
+                    <div class="row row-sm-30">
+                        <div class="col-lg-6" style="padding-right: 15px;" data-aos="fade-right">
+                            <img src="~/images/gioi-thieu-trang-diem-1.jpg" alt="Giới thiệu trang điểm" class="img-fluid" width="1706"
+                                 height="2560" />
+                        </div>
+
+                        <!-- Cột bên phải - giới thiệu -->
+                        <div class="col-lg-6" style="padding-left: 15px; font-family: 'Roboto', Arial, sans-serif;"
+                             data-aos="fade-left">
+                            <p>
+                                Bạn đã biết tin gì chưa! Bạn đã biết tin gì chưa! Blush&Brush – nơi sẽ giúp các bạn trở nên xinh đẹp
+                                và toả sáng hơn trước đám đông khi sử dụng dịch vụ và sản phẩm tại Blush&Brush. Với tinh thần học hỏi
+                                và sự chăm chỉ học tập rèn luyện nâng cao tay nghề qua trường lớp hẳn hoi, nhờ đó tất cả chuyên viên
+                                Makeup của Blush&Brush đủ tự tin để giúp cho bạn trở nên thật xinh đẹp và thu hút ánh nhìn trước đám
+                                đông.
+                            </p>
+                            <p>
+                                Với cách làm việc chuyên nghiệp và tận tâm, nhiệt tình, Blush&Brush luôn mong muốn đem đến sự hài lòng
+                                với khách hàng, bên cạnh đó Blush&Brush luôn cập nhật xu hướng mới để đáp ứng nhu cầu làm đẹp của bạn.
+                                Hiện tại Blush&Brush được
+                                khá nhiều khách hàng tin tưởng, yêu quý và đặt niềm tin quay lại với Blush&Brush. Chính vì vậy chúng tôi
+                                đã
+                                đang và luôn cố gắng trau đồi kinh nghiệm bản thân cũng như tay nghề để đảm bảo giúp khách hàng luôn
+                                xinh đẹp và tự tin.
+                            </p>
+                            <p>
+                                Đến với Blush&Brush chúng tôi, quý khách hàng sẽ luôn được trải nghiệm dịch vụ với tâm thế thoải mái
+                                nhất vì tất cả chuyên viên tại đây luôn làm việc với tiêu chí “ có tâm, có tầm “. Trang điểm – không chỉ
+                                là một ngành về làm đẹp mà nó còn chứa đựng trong đó cả một “ vùng trời nghệ thuật “. Niềm vui niềm hạnh
+                                phúc của mỗi một chuyên gia trang điểm đó là khi cầm cây cọ trên tay và làm khách hàng với tác phẩm
+                                makeup của mình trở nên hoàn hảo và xinh đẹp nhất .
+                            </p>
+                            <p>
+                                Blush&Brush khao khát chúng tôi sẽ là những người đi đầu trong lĩnh vực làm đẹp với những phong cách
+                                mới lạ, hiện đại và luôn được khách hàng đón nhận.
+                            </p>
+                            <!-- <p>Quý khách hàng hãy tin tưởng và trao niềm tin vào Blush&Brush nhé!</p> -->
+                        </div>
+                    </div>
+
+                    <br>
+                    <p class="text-center" style="font-family: 'Roboto', Arial, sans-serif; font-weight: bolder;">
+                        Quý khách hàng
+                        hãy tin tưởng và trao
+                        niềm tin vào Blush&Brush nhé!
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!--vacancy-->
+        <div class="section section-custom" data-aos="fade-up">
+            <div class="container wide">
+                <div class="text-center">
+                    <!-- <br class="br-none"> -->
+                    <h2 class="title">Bạn có phải là người <br class="br-none"> trang điểm chuyên nghiệp?</h2>
+                    <div class="subtitle-2 big">Hãy tham đội ngũ của chúng tôi để thúc đẩy sự nghiệp của bạn!</div>
+                    <div class="row justify-content-center">
+                        <a class="button button-secondary button-md" href="/Users/Artists/Register">Tham gia</a>
+                    </div>
+                    <div class="img-wrap">
+                        <img src="~/images/home-4-830x446.jpg" alt="" width="830" height="446" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="section footer-classic context-dark">
+            @await Html.PartialAsync("Partial/FooterPartial")
+        </footer>
+    </div>
+    <div class="snackbars" id="form-output-global"></div>
+    <script src="~/js/core.min.js"></script>
+    <script src="~/js/script.js"></script>
+    <!--coded by dyoma-->
+</body>
+
+</html>

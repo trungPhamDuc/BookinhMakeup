@@ -1,0 +1,163 @@
+﻿@page
+@model www_Blush_Brush.Pages.Users.Favorites.ViewModel
+@using www_Blush_Brush.Models
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    var favoriteArtists = ViewData["FavoriteArtists"] as List<MakeupArtist>;
+}
+
+<!DOCTYPE html>
+<html class="wide wow-animation" lang="en">
+
+<head>
+    <title>Dịch vụ makeup - Blush&Brush</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" href="~/images/favicon2.ico" sizes="128x128" type="image/x-icon">
+    <link rel="stylesheet" type="text/css"
+          href="//fonts.googleapis.com/css?family=DM+Sans:400,400i,500,500i,700,700i&amp;display=swap">
+    <link href="~/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/css/fonts.css" rel="stylesheet" />
+    <link href="~/css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- AOS CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+
+    <style>
+        .searchTerm::placeholder {
+            font-size: 15px;
+        }
+    </style>
+
+    <style>
+        .ie-panel {
+            display: none;
+            background: #212121;
+            padding: 10px 0;
+            box-shadow: 3px 3px 5px 0 rgba(0, 0, 0, .3);
+            clear: both;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        html.ie-10 .ie-panel,
+        html.lt-ie-10 .ie-panel {
+            display: block;
+        }
+
+        .article-card {
+            height: 93%;
+        }
+
+        .article-card {
+            position: relative;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            padding-top: 10px;
+        }
+
+        .favorite-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #ccc;
+            font-size: 20px;
+            z-index: 2;
+            text-decoration: none;
+        }
+
+            .favorite-icon:hover {
+                color: red;
+            }
+
+        .favorite-active {
+            color: red;
+        }
+      
+    </style>
+</head>
+
+<body>
+    <div class="ie-panel">
+        <a href="http://windows.microsoft.com/en-US/internet-explorer/">
+            <img src="images/ie8-panel/warning_bar_0000_us.jpg" height="42" width="820"
+                 alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today.">
+        </a>
+    </div>
+    <div class="preloader">
+        <div class="preloader-body">
+            <div class="cssload-container">
+                <div class="cssload-speeding-wheel"></div>
+            </div>
+            <p>Loading...</p>
+        </div>
+    </div>
+    <div class="page">
+        <header class="section page-header">
+            @await Html.PartialAsync("Partial/HeaderPartial")
+        </header>
+        <br>
+        <div class="section">
+            <div class="container wide">
+                <div class="divider"></div>
+            </div>
+        </div>
+        <!-- thợ make  -->
+        <div class="heading-container">
+            <div class="heading-title">
+                <h2>Danh Sách <span>Thợ Makeup yêu thích</span></h2>
+            </div>
+        </div>
+        @if (favoriteArtists == null || !favoriteArtists.Any())
+        {
+            <p>Bạn chưa có thợ make up yêu thích nào.</p>
+        }
+        else
+        {
+            <div class="section-area section-sp2 popular-courses-bx">
+                <div class="container">
+                    <div class="row">
+                        @foreach (MakeupArtist makeupArtist in favoriteArtists)
+                        {
+                            <div class="col-md-4">
+                                <div class="article-card">
+                                   
+                                    <img src="images/t2.jpg" alt="Article 1" style="width:100%">
+                                    <div class="article-content">
+                                        <h4>Makeup: @makeupArtist.User.Name</h4>
+                                        <p>Vị trí: @makeupArtist.Location</p>
+                                        <p>Phong Cách: @string.Join(", ", makeupArtist.Services.Select(s => s.Name))</p>
+                                        <div class="review">
+                                            <span class="rating">
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star-half-alt"></i>
+                                                <i class="fa fa-star-half-alt"></i>
+                                            </span>
+                                            <span class="comments">20 bình luận</span>
+                                        </div>
+                                        <a href="/BookingMakeup/View?artistId=@makeupArtist.UserId" class="btn btn-primary">Đặt lịch ngay</a>
+                                        <a href="/Detail/View?artistId=@makeupArtist.UserId" class="btn btn-primary">Chi Tiết</a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+            </div>
+        </div>
+        }
+    </div>
+    <footer class="section footer-classic context-dark">
+        @await Html.PartialAsync("Partial/FooterPartial")
+    </footer>
+    <div class="snackbars" id="form-output-global"></div>
+    <script src="~/js/core.min.js"></script>
+    <script src="~/js/script.js"></script>
+</body>
+
+</html>

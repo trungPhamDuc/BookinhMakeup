@@ -1,0 +1,174 @@
+﻿@{
+    var username = Context.Session.GetString("UserName");
+    var userrole = Context.Session.GetString("UserRole");
+    var userid = Context.Session.GetString("userId");
+}
+<style>
+    /* Cơ bản cho menu */
+    .topbar-right ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+    }
+
+    .topbar-right li {
+        margin-left: 15px;
+        position: relative;
+    }
+    
+
+    /* Dropdown content mặc định ẩn */
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        right: 0;
+        top: 100%;
+        background-color: white;
+        min-width: 160px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        z-index: 1000;
+    }
+
+        .dropdown-content a {
+            color: black;
+            padding: 10px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+            .dropdown-content a:hover {
+                color: #FE9B8E;
+                background-color: white;
+            }
+</style>
+
+<div class="top-bar">
+    <div class="container">
+        <div class="row d-flex justify-content-between align-items-center">
+            <!-- Phần bên trái -->
+            <div class="topbar-left d-flex">
+                <ul class="d-flex">
+                    <!-- <li>
+                      <a href="faq-1.html">
+                        <i class="fa fa-question-circle"></i> Hỏi Đáp
+                      </a>
+                    </li> -->
+                    <li>
+                        <a href="mailto:Support@website.com">
+                            <i class="fa fa-envelope-o"></i> Support@website.com
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Phần bên phải -->
+            <div class="topbar-right">
+                <ul>
+                    <li><a href="#"><i class="fas fa-language"></i> Tiếng Việt</a></li>
+                    <li><a href="#"><i class="fas fa-bell"></i> Thông Báo</a></li>
+
+                    <li class="dropdown" id="accountDropdown">
+                        <a href="javascript:void(0);" onclick="toggleDropdown()">
+                            <i class="fas fa-user"></i>
+                            @(string.IsNullOrEmpty(username)
+                                                        ? "Tài Khoản" : username)
+                        </a>
+                        <div class="dropdown-content" id="accountMenu">
+                            @if (string.IsNullOrEmpty(username))
+                            {
+                                <a href="/Users/Login">Đăng nhập</a>
+                            }
+                            else
+                            {
+                                <a href="#">Hồ sơ</a>
+                                <a href="/Users/Favorites/View">Danh sách yêu thích</a>
+                                @if (userrole == "artist")
+                                {
+                                    <a href="/History/ViewOrderBooking?artistUserId=@userid">Danh sách đơn hàng</a>
+                                }
+                            }
+
+                            <a href="/Users/Memberships/View">Thẻ thành viên</a>
+
+                            @if (!string.IsNullOrEmpty(username))
+                            {
+                                <a href="/Users/Logout" class="text-danger">Đăng xuất</a>
+                            }
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!--RD Navbar-->
+<div class="rd-navbar-wrap">
+    <nav class="rd-navbar rd-navbar-classic" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed"
+         data-md-layout="rd-navbar-fixed" data-md-device-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-static"
+         data-lg-device-layout="rd-navbar-static" data-xl-layout="rd-navbar-static"
+         data-xl-device-layout="rd-navbar-static" data-lg-stick-up-offset="46px" data-xl-stick-up-offset="46px"
+         data-xxl-stick-up-offset="46px" data-lg-stick-up="true" data-xl-stick-up="true" data-xxl-stick-up="true">
+        <div class="rd-navbar-main-outer">
+            <div class="rd-navbar-main">
+                <!--RD Navbar Panel-->
+                <div class="rd-navbar-panel">
+                    <!--RD Navbar Toggle-->
+                    <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button>
+                    <!--RD Navbar Brand-->
+                    <div class="rd-navbar-brand">
+                        <!--Brand--><a class="brand" href="index.html">
+                            <img class="brand-logo-dark" src="~/images/logo.png"
+                                 alt="" width="214" height="56" /><img class="brand-logo-light"
+                                                                       src="~/images/logo-inverse-430x112.png" alt="" width="215" height="56" />
+                        </a>
+                    </div>
+                </div>
+                <div class="rd-navbar-main-element">
+                    <div class="rd-navbar-nav-wrap">
+                        <ul class="rd-navbar-nav">
+                            <li class="rd-nav-item @(ViewContext.HttpContext.Request.Path == "/Home/View" ? "active" : "")">
+                                <a class="rd-nav-link" href="/Home/View">Trang Chủ</a>
+                            </li>
+                            <li class="rd-nav-item @(ViewContext.HttpContext.Request.Path == "/Services/View" ? "active" : "")">
+                                <a class="rd-nav-link" href="/Services/View">Dịch Vụ Makeup</a>
+                            </li>
+                            <li class="rd-nav-item @(ViewContext.HttpContext.Request.Path == "/GiftVouchers/View" ? "active" : "")">
+                                <a class="rd-nav-link" href="/GiftVouchers/View">Ưu Đãi</a>
+                            </li>
+                            <li class="rd-nav-item @(ViewContext.HttpContext.Request.Path == "/Contacts/View" ? "active" : "")">
+                                <a class="rd-nav-link" href="/Contacts/View">Về Chúng Tôi</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="nav-social-link">
+                    <a href="https://www.facebook.com/profile.php?id=61573575127444" title="Facebook" target="_blank">
+                        <i class="fa fa-facebook"></i>
+                    </a>
+                    <a href="https://www.tiktok.com/@@blushbrushmakeup" title="TikTok" target="_blank">
+                        <i class="fa fa-tiktok"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+
+<script>
+    // Hàm toggle dropdown khi click
+    function toggleDropdown() {
+        const menu = document.getElementById("accountMenu");
+        menu.style.display = (menu.style.display === "block") ? "none" : "block";
+    }
+
+    // Đóng dropdown khi click ra ngoài
+    document.addEventListener("click", function (event) {
+        const dropdown = document.getElementById("accountDropdown");
+        const menu = document.getElementById("accountMenu");
+
+        if (!dropdown.contains(event.target)) {
+            menu.style.display = "none";
+        }
+    });
+</script>

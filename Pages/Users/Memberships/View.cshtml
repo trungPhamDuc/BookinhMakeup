@@ -1,0 +1,214 @@
+﻿@page
+@model www_Blush_Brush.Pages.Users.Memberships.ViewModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    var userId = HttpContext.Session.GetString("userId");
+    var userrole = HttpContext.Session.GetString("UserRole");
+    var membership = ViewData["Membership"] as www_Blush_Brush.Models.Membership;
+}
+
+
+<!DOCTYPE html>
+<html class="wide wow-animation" lang="vi">
+
+<head>
+    <title>Thành viên - Blush&Brush</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" href="~/images/favicon2.ico" sizes="128x128" type="image/x-icon">
+    <link rel="stylesheet" type="text/css"
+          href="//fonts.googleapis.com/css?family=DM+Sans:400,400i,500,500i,700,700i&amp;display=swap">
+    <link rel="stylesheet" href="~/css/bootstrap.css">
+    <link rel="stylesheet" href="~/css/fonts.css">
+    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+
+    <style>
+        .ie-panel {
+            display: none;
+            background: #212121;
+            padding: 10px 0;
+            box-shadow: 3px 3px 5px 0 rgba(0, 0, 0, .3);
+            clear: both;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        html.ie-10 .ie-panel,
+        html.lt-ie-10 .ie-panel {
+            display: block;
+        }
+        .card {
+             transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+    </style>
+
+</head>
+<!-- AOS JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+      AOS.init({
+        duration: 3000, // Thời gian chạy hiệu ứng (2 giây)
+        delay: 300, // Độ trễ trước khi hiệu ứng bắt đầu (300ms)
+        once: false // Cho phép hiệu ứng chạy lại khi kéo trang
+      });
+    });
+</script>
+
+<body>
+    <div class="ie-panel">
+        <a href="http://windows.microsoft.com/en-US/internet-explorer/">
+            <img src="~/images/ie8-panel/warning_bar_0000_us.jpg" height="42" width="820"
+                 alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today.">
+        </a>
+    </div>
+    <div class="preloader">
+        <div class="preloader-body">
+            <div class="cssload-container">
+                <div class="cssload-speeding-wheel"></div>
+            </div>
+            <p>Loading...</p>
+        </div>
+    </div>
+    <div class="page">
+        <header class="section page-header">
+            @await Html.PartialAsync("Partial/HeaderPartial")
+        </header>
+        <section class="section-lg bg-secondary">
+            <div class="container wide">
+                <div class="text-center">
+                    <h1>Thẻ thành viên</h1>
+                    <div class="subtitle-2">Nhận những ưu đãi vô cùng hấp dẫn từ Blush&Brush</div>
+                </div>
+            </div>
+        </section>
+       <div class="section-area section-sp2 popular-courses-bx">
+           <div class="row row-md-80 row-sm-50 justify-content-center" data-aos="fade-up">
+               
+             @if (userrole == null || userrole == "customer")
+                {
+                    <div class="col-md-4 mb-4">
+                        <div class="card shadow-lg border-0 rounded-4 h-100">
+                            <div class="card-body text-center px-4 py-5">
+                                <h4 class="card-title fw-bold mb-3">Dành cho khách hàng</h4>
+                                <p class="card-text text-muted">Thẻ cơ bản với quyền lợi ưu tiên</p>
+                                <ul style="list-style: none; padding-left: 95px;">
+                                    <li style="margin-bottom: 10px; display: flex; align-items: flex-start;">
+                                        <i class="fas fa-check-circle" style="color: #f48fb1; margin-right: 10px; margin-top: 3px;"></i>
+                                        <span>Giảm 10% dịch vụ</span>
+                                    </li>
+                                    <li style="margin-bottom: 10px; display: flex; align-items: flex-start;">
+                                        <i class="fas fa-check-circle" style="color: #f48fb1; margin-right: 10px; margin-top: 3px;"></i>
+                                        <span>Ưu tiên đặt lịch</span>
+                                    </li>
+                                    <li style="margin-bottom: 10px; display: flex; align-items: flex-start;">
+                                        <i class="fas fa-check-circle" style="color: #f48fb1; margin-right: 10px; margin-top: 3px;"></i>
+                                        <span>Tặng voucher sinh nhật</span>
+                                    </li>
+                                </ul>
+                                @if (membership == null)
+                                {
+                                    <h5 class="text-primary fw-semibold mb-3">Thời hạn: 1 tháng</h5>
+                                    <h5 class="text-primary fw-semibold mb-3">Giá: 99.000 đ</h5>
+                                    <form method="post" asp-page="/Users/Memberships/Checkout">
+                                        <input type="hidden" name="MembershipType" value="VIP-Customer" />
+                                        <button type="submit" class="btn btn-primary rounded-pill px-4">Đăng ký</button>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <h5 class="text-primary fw-semibold mb-3">
+                                        Đã đăng kí
+                                        <i class="fas fa-check-circle text-success ms-2"></i>
+                                    </h5>
+                                    if (membership != null && membership.DurationDays > 0)
+                                    {
+                                        <h5 class="text-primary fw-semibold mb-3">Hết hạn sau: @membership.DurationDays ngày</h5>
+                                    }
+                                    else
+                                    {
+                                        <form method="post" asp-page="/Users/Memberships/Checkout">
+                                            <input type="hidden" name="MembershipType" value="VIP-Customer" />
+                                            <button type="submit" class="btn btn-primary rounded-pill px-4">Gia hạn</button>
+                                        </form>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+             @if (userrole == null || userrole == "artist")
+               {
+                
+                <div class="col-md-4 mb-4">
+                   <div class="card shadow-lg border-0 rounded-4 h-100">
+                      <div class="card-body text-center px-4 py-5">
+                         <h4 class="card-title fw-bold mb-3">Dành cho Mekeup Artist</h4>
+                            <p class="card-text text-muted">Thẻ VIP dành riêng cho khách hàng thân thiết</p>
+                               <ul style="list-style: none; padding-left: 95px;">
+                                   <li style="margin-bottom: 10px; display: flex; align-items: flex-start;">
+                                            <i class="fas fa-check-circle" style="color: #f48fb1; margin-right: 10px; margin-top: 3px;"></i>
+                                            <span>Giảm 10% phí hoa hồng</span>
+                                   </li>
+                                   <li style="margin-bottom: 10px; display: flex; align-items: flex-start;">
+                                            <i class="fas fa-check-circle" style="color: #f48fb1; margin-right: 10px; margin-top: 3px;"></i>
+                                            <span>Hỗ trợ quảng bá thương hiệu</span>
+                                   </li>
+                                   <li style="margin-bottom: 10px; display: flex; align-items: flex-start;">
+                                            <i class="fas fa-check-circle" style="color: #f48fb1; margin-right: 10px; margin-top: 3px;"></i>
+                                            <span>Nhận booking ưu tiên</span>
+                                   </li>
+                                </ul>
+                                @if (membership == null)
+                                {
+                                    <h5 class="text-primary fw-semibold mb-3">Thời hạn: 1 tháng</h5>
+                                    <h5 class="text-primary fw-semibold mb-3">Giá: 99.000 đ</h5>
+                                    <form method="post" asp-page="/Users/Memberships/Checkout">
+                                        <input type="hidden" name="MembershipType" value="VIP-Makeup-Artist" />
+                                        <button type="submit" class="btn btn-primary rounded-pill px-4">Đăng ký</button>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <h5 class="text-primary fw-semibold mb-3">
+                                        Đã đăng kí
+                                        <i class="fas fa-check-circle text-success ms-2"></i>
+                                    </h5>
+                                    if (membership != null && membership.DurationDays > 0)
+                                    {
+                                        <h5 class="text-primary fw-semibold mb-3">Hết hạn sau: @membership.DurationDays ngày</h5>
+                                    }
+                                    else
+                                    {
+                                        <form method="post" asp-page="/Users/Memberships/Checkout">
+                                            <input type="hidden" name="MembershipType" value="VIP-Makeup-Artist" />
+                                            <button type="submit" class="btn btn-primary rounded-pill px-4">Gia hạn</button>
+                                        </form>
+                                    }
+                                }
+                      </div>
+                   </div>
+                </div>
+             }
+           </div>
+       </div>
+        <br>
+        <footer class="section footer-classic context-dark">
+            @await Html.PartialAsync("Partial/FooterPartial")
+        </footer>
+    </div>
+    <div class="snackbars" id="form-output-global"></div>
+    <script src="~/js/core.min.js"></script>
+    <script src="~/js/script.js"></script>
+    <!--coded by dyoma-->
+</body>
+</html>

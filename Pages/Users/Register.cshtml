@@ -1,0 +1,60 @@
+﻿@page
+@model www_Blush_Brush.Pages.Users.RegisterModel
+
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Register - Blush & Brush</title>
+    <link rel="stylesheet" href="~/css/auth.css" />
+</head>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+<body>
+    <div class="login-wrapper">
+        <div class="login-container">
+            <img src="~/images/logo.png" alt="Logo" class="logo" />
+            <h2>Register</h2>
+
+            <form method="post" class="login-form">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label>Name:</label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label>Email:</label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label>Phone:</label>
+                    <input asp-for="Phone" class="form-control" />
+                    <span asp-validation-for="Phone" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label>Password:</label>
+                    <input asp-for="Password" type="password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn-login">Register</button>
+            </form>
+
+            @if (!string.IsNullOrEmpty(Model.Message))
+            {
+                <p class="success-message">@Model.Message</p>
+            }
+            @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+            {
+                <p class="error-message">@Model.ErrorMessage</p>
+            }
+        </div>
+    </div>
+</body>
+</html>

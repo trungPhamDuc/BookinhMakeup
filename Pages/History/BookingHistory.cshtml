@@ -1,0 +1,362 @@
+﻿@page
+@model www_Blush_Brush.Pages.History.BookingHistoryModel
+@using www_Blush_Brush.Models
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Lịch sử Đặt Lịch - Blush&Brush</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" href="~/images/favicon2.ico" sizes="128x128" type="image/x-icon">
+    <link rel="stylesheet" type="text/css"
+          href="//fonts.googleapis.com/css?family=DM+Sans:400,400i,500,500i,700,700i&amp;display=swap">
+    <link rel="stylesheet" href="~/css/bootstrap.css">
+    <link rel="stylesheet" href="~/css/fonts.css">
+    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+
+    <style>
+        /* Modal Background */
+        .custom-modal {
+            display: none; /* ẩn modal mặc định */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5); /* nền mờ */
+        }
+
+        /* Modal Content Box */
+        .modal-content {
+            background-color: #fff;
+            margin: 10% auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 50%;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        /* Close button */
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #333;
+        }
+
+        /* Star rating container */
+        .star-rating {
+            direction: rtl; /* quan trọng: hướng từ phải sang trái */
+            unicode-bidi: bidi-override;
+            display: inline-flex;
+            flex-direction: row-reverse; /* đảo chiều hàng */
+        }
+
+        .star-rating {
+            display: inline-flex;
+            flex-direction: row;
+        }
+
+            .star-rating input {
+                display: none;
+            }
+
+            .star-rating label {
+                font-size: 2rem;
+                color: #ccc;
+                cursor: pointer;
+                transition: color 0.2s ease-in-out;
+            }
+
+                .star-rating label.hovered,
+                .star-rating label.selected {
+                    color: gold;
+                }
+
+
+        /* Form elements */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+            .form-group label {
+                font-weight: bold;
+                display: block;
+                margin-bottom: 6px;
+            }
+
+        textarea {
+            width: 100%;
+            resize: vertical;
+            padding: 8px;
+            font-size: 1rem;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-family: inherit;
+        }
+
+        .submit-btn {
+            background-color: #f78f9d;
+            color: white;
+            padding: 14px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+            .submit-btn:hover {
+                background-color: #6070b8;
+                box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+                transform: translateY(-2px);
+                transition: all 0.3s ease;
+            }
+    </style>
+
+    <style>
+        .ie-panel {
+            display: none;
+            background: #212121;
+            padding: 10px 0;
+            box-shadow: 3px 3px 5px 0 rgba(0, 0, 0, .3);
+            clear: both;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        html.ie-10 .ie-panel,
+        html.lt-ie-10 .ie-panel {
+            display: block;
+        }
+
+        .table {
+            width: 100%;
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+            .table th,
+            .table td {
+                padding: 12px;
+                text-align: left;
+                border-bottom: 1px solid #ddd;
+            }
+
+            .table th {
+                background-color: #f8f8f8;
+                color: #333;
+            }
+
+            .table td {
+                color: #555;
+            }
+
+            .table tr:hover {
+                background-color: #f9f9f9;
+            }
+
+        .submit-btn {
+            background-color: #f78f9d;
+            color: white;
+            padding: 14px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            margin-top: 1%;
+            margin-bottom: 1%;
+        }
+
+            .submit-btn:hover {
+                background-color: #6070b8;
+                box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+                transform: translateY(-2px);
+            }
+    </style>
+</head>
+
+<body>
+    <div class="ie-panel">
+        <a href="http://windows.microsoft.com/en-US/internet-explorer/">
+            <img src="images/ie8-panel/warning_bar_0000_us.jpg" height="42" width="820"
+                 alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today.">
+        </a>
+    </div>
+
+    <div class="preloader">
+        <div class="preloader-body">
+            <div class="cssload-container">
+                <div class="cssload-speeding-wheel"></div>
+            </div>
+            <p>Loading...</p>
+        </div>
+    </div>
+
+    <div class="page">
+        <header class="section page-header">
+            @await Html.PartialAsync("Partial/HeaderPartial")
+        </header>
+
+        <!-- Lịch sử đặt lịch của người dùng -->
+        <div class="section">
+            <div class="container">
+                <h2>Lịch sử đặt lịch của bạn</h2>
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Người makeup</th>
+                            <th>Dịch vụ</th>
+                            <th>Thời gian</th>
+                            <th>Số tiền</th>
+                            <th>Trạng thái</th>
+                            <th>Duyệt</th>
+                            <th>Đánh giá</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var booking in Model.BookingHistory)
+                        {
+                            <tr>
+                                <td>@booking.ArtistName</td>
+                                <td>@booking.ServiceName</td>
+                                <td>@booking.BookingTime.ToString("g")</td>
+                                <td>@booking.AmountPaid</td>
+                                <td>@booking.PaymentStatus</td>
+                                <td>@booking.Status</td>
+                                @if (booking.Rating == 1 && string.IsNullOrWhiteSpace(booking.ReviewComment))
+                                {
+                                    <td colspan="2">
+                                        <a href="javascript:void(0);" style="color:red; font-weight:bold;" data-booking-id="@booking.BookingId">
+                                            Chưa đánh giá
+                                        </a>
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td colspan="2"><a href="/Detail/View?bookingId=@booking.BookingId">Xem đánh giá</a></td>
+                                }
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <!-- Modal HTML -->
+                <div id="customModal" class="custom-modal">
+                    <div class="modal-content">
+                        <span class="close-modal">&times;</span>
+                        <h4>Đánh giá</h4>
+                        <form method="post" asp-page="/Reviews/Submit">
+                            <input type="hidden" name="BookingId" id="modalBookingId" />
+                            <br />
+                            <div class="form-group">
+                                <label>Số sao:</label>
+                                <div class="star-rating">
+                                    <input type="radio" id="star1" name="rating" value="1" />
+                                    <label for="star1">&#9733;</label>
+
+                                    <input type="radio" id="star2" name="rating" value="2" />
+                                    <label for="star2">&#9733;</label>
+
+                                    <input type="radio" id="star3" name="rating" value="3" />
+                                    <label for="star3">&#9733;</label>
+
+                                    <input type="radio" id="star4" name="rating" value="4" />
+                                    <label for="star4">&#9733;</label>
+
+                                    <input type="radio" id="star5" name="rating" value="5" />
+                                    <label for="star5">&#9733;</label>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+                                <label for="review">Bình luận:</label>
+                                <textarea name="ReviewComment" id="review" rows="4" required></textarea>
+                            </div>
+
+                            <button type="submit" class="submit-btn">Gửi đánh giá</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="section footer-classic context-dark">
+        @await Html.PartialAsync("Partial/FooterPartial")
+    </footer>
+
+    <script>
+                const modal = document.getElementById("customModal");
+        const modalBookingIdInput = document.getElementById("modalBookingId");
+        const closeModalBtn = document.querySelector(".close-modal");
+
+        document.querySelectorAll(".open-modal").forEach(function (element) {
+            element.addEventListener("click", function () {
+                const bookingId = this.getAttribute("data-booking-id");
+                modalBookingIdInput.value = bookingId;
+                modal.style.display = "block";
+            });
+        });
+
+
+        closeModalBtn.addEventListener("click", () => {
+            modal.style.display = "none";
+        });
+
+        window.addEventListener("click", (event) => {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        });
+
+
+        const stars = document.querySelectorAll('.star-rating label');
+        const inputs = document.querySelectorAll('.star-rating input');
+
+        stars.forEach((star, idx) => {
+            star.addEventListener('mouseenter', () => {
+                stars.forEach((s, i) => {
+                    if (i <= idx) {
+                        s.classList.add('hovered');
+                    } else {
+                        s.classList.remove('hovered');
+                    }
+                });
+            });
+            star.addEventListener('mouseleave', () => {
+                stars.forEach(s => s.classList.remove('hovered'));
+            });
+        });
+
+        inputs.forEach((input, idx) => {
+            input.addEventListener('change', () => {
+                stars.forEach(s => s.classList.remove('selected'));
+                for(let i = 0; i <= idx; i++) {
+                    stars[i].classList.add('selected');
+                }
+            });
+        });
+    </script>
+
+    <script src="~/js/core.min.js"></script>
+    <script src="~/js/script.js"></script>
+</body>
+
+</html>

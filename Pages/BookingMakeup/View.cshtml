@@ -1,0 +1,900 @@
+﻿@page
+@model www_Blush_Brush.Pages.BookingMakeup.ViewModel
+@using www_Blush_Brush.Models
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    var artist = ViewData["MakeupArtistDetail"] as MakeupArtist;
+    var userId = HttpContext.Session.GetString("userId");
+}
+
+<!DOCTYPE html>
+<html class="wide wow-animation" lang="en">
+
+<head>
+    <title>Đặt lịch</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" href="~/images/favicon2.ico" sizes="128x128" type="image/x-icon">
+    <link rel="stylesheet" type="text/css"
+          href="//fonts.googleapis.com/css?family=DM+Sans:400,400i,500,500i,700,700i&amp;display=swap">
+    <link rel="stylesheet" href="~/css/bootstrap.css">
+    <link rel="stylesheet" href="~/css/fonts.css">
+    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .ie-panel {
+            display: none;
+            background: #212121;
+            padding: 10px 0;
+            box-shadow: 3px 3px 5px 0 rgba(0, 0, 0, .3);
+            clear: both;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        html.ie-10 .ie-panel,
+        html.lt-ie-10 .ie-panel {
+            display: block;
+        }
+
+        /*---------- */
+        .db {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin-right: 100px;
+        }
+
+        .container-d {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .steps-d {
+            display: flex;
+            justify-content: space-between;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .step-d {
+            flex: 1;
+            text-align: center;
+            font-size: 16px;
+            color: #bbb;
+            font-weight: bold;
+            position: relative;
+            cursor: pointer;
+        }
+
+            .step-d.active {
+                color: #c89d72;
+                font-weight: bold;
+            }
+
+                .step-d.active::before {
+                    content: "";
+                    position: absolute;
+                    bottom: -2px;
+                    left: 50%;
+                    width: 80%;
+                    height: 4px;
+                    background: #c89d72;
+                    transform: translateX(-50%);
+                    border-radius: 2px;
+                }
+
+        .step-content-d {
+            display: none;
+            margin-top: 20px;
+        }
+
+            .step-content-d.active {
+                display: block;
+            }
+
+        .form-group-d {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+        }
+
+            .form-group-d input {
+                flex: 1;
+                padding: 10px;
+                margin: 0 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                text-align: center;
+                font-size: 14px;
+            }
+
+        .buttons-d {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .prev-d {
+            background: #c89d72;
+            color: white;
+        }
+
+        .next-d {
+            background: #c89d72;
+            color: white;
+        }
+
+        .time-selection-d {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 10px;
+        }
+
+        .time-slot-d {
+            background: #1a1a1a;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+            .time-slot-d:hover {
+                background: #444;
+            }
+
+            .time-slot-d.selected {
+                background: #c89d72;
+                color: white;
+            }
+
+        /* Form group - căn chỉnh input */
+        /* Chỉnh sửa nhóm input */
+        .form-group-d {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+            /* Chỉnh sửa input và textarea */
+            .form-group-d input,
+            .form-group-d textarea {
+                flex: 1;
+                /* Cùng kích thước */
+                padding: 12px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                font-size: 14px;
+                outline: none;
+            }
+
+            /* Đảm bảo textarea thẳng hàng */
+            .form-group-d.full-width {
+                display: flex;
+                width: 100%;
+            }
+
+                .form-group-d.full-width textarea {
+                    flex: 1;
+                    /* Sử dụng flex để bằng input */
+                    width: auto;
+                    /* Không dùng width: 100% vì sẽ làm lệch */
+                    height: 80px;
+                    resize: none;
+                }
+
+        /* Nút đặt lịch */
+        .book-appointment-d {
+            width: 100%;
+            padding: 15px;
+            background: #c89d72;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: background 0.3s;
+            margin-bottom: 10px;
+            width: 30%;
+        }
+
+        .form-group-container-d {
+            display: flex;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        .book-appointment-d:hover {
+            background: #b07c56;
+        }
+
+        /**/
+        .calendar-d {
+            text-align: center;
+            padding: 10px;
+        }
+
+        .calendar-title-d .month-name-d {
+            color: black;
+            /* Màu đen cho chữ tháng */
+            font-size: 30px;
+        }
+
+        .calendar-title-d .year-d {
+            color: #b07c56;
+            /* Màu hồng (#FF69B4) cho số năm */
+            font-size: 30px;
+        }
+
+        .calendar-header-d {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: transparent;
+            color: white;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+
+        .calendar-weekdays-d {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            background: #e0c5a8;
+            padding: 10px;
+            font-weight: bold;
+            text-align: center;
+            border-radius: 5px;
+        }
+
+        .weekdays-d {
+            margin: 0;
+            padding: 10px 0;
+            background-color: #c89d72;
+        }
+
+            .weekdays-d li {
+                display: inline-block;
+                width: 13.6%;
+                color: white;
+                text-align: center;
+            }
+
+        .calendar-body-d {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            padding: 10px;
+        }
+
+        .day {
+            padding: 12px;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            text-align: center;
+            transition: background 0.3s, color 0.3s;
+        }
+
+            .day:hover {
+                background: #c89d72;
+                color: white;
+            }
+
+            .day.selected {
+                background: #c89d72;
+                color: white;
+                font-weight: bold;
+            }
+
+            .day.today {
+                background: #c89d72;
+                color: white;
+                font-weight: bold;
+                border: 2px solid #a57b50;
+            }
+
+        .empty {
+            background: #f0f0f0;
+            color: #aaa;
+            border-radius: 5px;
+            text-align: center;
+            cursor: default;
+        }
+
+        /* Nút điều hướng */
+        button {
+            cursor: pointer;
+            border: none;
+            padding: 8px 12px;
+            background: white;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+
+            button:hover {
+                background: #ddd;
+            }
+
+        /* Popup Overlay */
+        /* Ẩn popup ban đầu với hiệu ứng */
+        .appointment-popup-d {
+            display: flex;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            /* Ẩn ban đầu */
+            visibility: hidden;
+            /* Không cho click khi ẩn */
+            transition: opacity 0.4s ease-in-out, visibility 0.4s ease-in-out;
+        }
+
+        /* Nội dung popup */
+        .popup-content-d {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 50%;
+            height: 500px;
+            /* Thêm chiều cao cố định */
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            position: relative;
+            transform: scale(0.8);
+            /* Nhỏ hơn bình thường khi ẩn */
+            transition: transform 0.4s ease-in-out;
+        }
+
+        /* Khi hiển thị, popup sẽ dần hiện lên */
+        .appointment-popup-d.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+            .appointment-popup-d.show .popup-content-d {
+                transform: scale(1);
+                /* Phóng to nhẹ khi xuất hiện */
+            }
+
+        /* Icon Check */
+        .popup-icon-d i {
+            font-size: 50px;
+            color: #ffc3a0;
+            margin-bottom: 10px;
+        }
+
+        /* Nút Đóng Popup */
+        .close-popup-d {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        /* Chi tiết cuộc hẹn */
+        .popup-details-d table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .popup-details-d td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+        }
+
+            .popup-details-d td:first-child {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                color: #333;
+                background: #f5f5f5;
+                width: 40%;
+            }
+
+            .popup-details-d td:last-child {
+                text-align: left;
+                background: #fff;
+            }
+
+        /* Căn chỉnh các dropdown */
+        /* Căn chỉnh và làm cho dropdown nhỏ lại */
+        .dropdown-d {
+            padding: 8px 10px;
+            /* Điều chỉnh padding để dropdown nhỏ hơn */
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            /* Giảm kích thước font chữ của các option */
+            width: auto;
+            /* Tự động điều chỉnh chiều rộng */
+            max-width: 250px;
+            /* Giới hạn chiều rộng tối đa để không quá rộng */
+            background-color: #fff;
+            transition: border-color 0.3s ease;
+        }
+
+            .dropdown-d:focus {
+                outline: none;
+                border-color: #007bff;
+            }
+
+        option {
+            font-size: 14px;
+            /* Giảm kích thước font chữ của các option */
+        }
+
+        /* Giảm kích thước chữ của lựa chọn mặc định (SELECT CATEGORY) */
+        .dropdown-d option[disabled] {
+            font-size: 12px;
+            /* Đặt font-size nhỏ hơn cho phần lựa chọn mặc định */
+            color: #aaa;
+            /* Thêm màu nhạt để làm nổi bật lựa chọn mặc định */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="ie-panel">
+        <a href="http://windows.microsoft.com/en-US/internet-explorer/">
+            <img src="~/images/ie8-panel/warning_bar_0000_us.jpg" height="42" width="820"
+                 alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today.">
+        </a>
+    </div>
+    <div class="preloader">
+        <div class="preloader-body">
+            <div class="cssload-container">
+                <div class="cssload-speeding-wheel"></div>
+            </div>
+            <p>Loading...</p>
+        </div>
+    </div>
+    <div class="page">
+        <header class="section page-header">
+            @await Html.PartialAsync("Partial/HeaderPartial")
+        </header>
+
+        <!-- Breadcrumbs-->
+        <section class="breadcrumbs-custom bg-secondary"
+                 data-preset='{"title":"Breadcrumbs","category":"header","reload":false,"id":"breadcrumbs"}'>
+            <div class="container">
+                <h2 class="breadcrumbs-custom-title">Chi Tiết Đặt Lịch</h2>
+                <ul class="breadcrumbs-custom-path">
+                    <li><a href="/Home/View">Trang Chủ</a></li>
+                    <li><a href="/Services/View">Dịch Vụ Makeup</a></li>
+                    <li class="active">Đặt Lịch</li>
+                </ul>
+            </div>
+        </section>
+        @if (artist != null)
+        { 
+        <!--Base typography -->
+        <div class="bd">
+            <div class="container-d">
+                <!-- Bước điều hướng -->
+                <div class="steps-d">
+                    <div class="step-d active" data-step="1">1. <span>Thông tin chi tiết</span></div>
+                    <div class="step-d" data-step="2">2. <span>Ngày</span></div>
+                    <div class="step-d" data-step="3">3. <span>Giờ</span></div>
+                    <div class="step-d" data-step="4">4. <span>Thông tin người dùng</span></div>
+                </div>
+
+                <!-- Nội dung từng bước -->
+                <div class="step-content-d active" data-content="1">
+                    <div class="form-group-d">
+                        <select class="dropdown-d service-select-d">
+                            <option value="" disabled selected>Phong Cách Makeup</option>
+                            @foreach (var service in artist!.Services)
+                            {
+                                <option value="@service.Id" data-price="@service.BasePrice">@service.Name</option>
+                            }
+                        </select>
+
+                        <select class="dropdown-d artist-select-d">
+                            <option value="" disabled selected>@artist.User.Name</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="step-content-d" data-content="2">
+                    <h2><span class="month-name-d" hidden></span> <span class="year-d" hidden></span></h2>
+                    <div class="calendar-d">
+                        <div class="calendar-header-d">
+                            <button class="prev-month-d"><i class="fas fa-chevron-left"></i></button>
+                            <span class="calendar-title-d">
+                                <span class="month-name-d"></span> -- <span class="year-d"></span>
+                            </span>
+                            <button class="next-month-d"><i class="fas fa-chevron-right"></i></button>
+
+                        </div>
+                        <ul class="weekdays-d">
+                            <li>Thứ 2</li>
+                            <li>Thứ 3</li>
+                            <li>Thứ 4</li>
+                            <li>Thứ 5</li>
+                            <li>Thứ 6</li>
+                            <li>Thứ 7</li>
+                            <li>Chủ nhật</li>
+                        </ul>
+                        <div class="calendar-body-d"></div>
+                    </div>
+                </div>
+
+                <div class="step-content-d" data-content="3">
+                    <div class="time-selection-d">
+                        <button class="time-slot-d">06:00</button>
+                        <button class="time-slot-d">07:00</button>
+                        <button class="time-slot-d">08:00</button>
+                        <button class="time-slot-d">09:00</button>
+                        <button class="time-slot-d">10:00</button>
+                        <button class="time-slot-d">11:00</button>
+                        <button class="time-slot-d">12:00</button>
+                        <button class="time-slot-d">13:00</button>
+                        <button class="time-slot-d">14:00</button>
+                        <button class="time-slot-d">15:00</button>
+                        <button class="time-slot-d">16:00</button>
+                        <button class="time-slot-d">17:00</button>
+                        <button class="time-slot-d">18:00</button>
+                        <button class="time-slot-d">19:00</button>
+                        <button class="time-slot-d">20:00</button>
+                    </div>
+                </div>
+
+                <div class="step-content-d" data-content="4">
+                    <div class="form-group-d">
+                        <input type="text" placeholder="FIRST NAME">
+                        <input type="text" placeholder="LAST NAME">
+                    </div>
+                    <div class="form-group-d">
+                        <input type="email" placeholder="INFO@EXAMPLE.COM">
+                        <input type="text" placeholder="PHONE NUMBER">
+                    </div>
+                    <div class="form-group-d full-width-d">
+                        <textarea placeholder="ADD A DESCRIPTION"></textarea>
+                    </div>
+                    <div class="form-group-container-d">
+                        <button class="book-appointment-d">Đặt Lịch</button>
+                    </div>
+                </div>
+
+                <div class="buttons-d">
+                    <button class="btn prev-d">Sau</button>
+                    <button class="btn next-d">Tiếp</button>
+                </div>
+            </div>
+            <div class="appointment-popup-d" id="appointmentPopup">
+                <div class="popup-content-d">
+                    <span class="close-popup-d">&times;</span>
+                    <div class="popup-icon-d">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h2>Thông tin thanh toán!</h2>
+                    <form  method="post" asp-page="/Payments/Checkout">
+                        <input type="hidden" name="UserId" value="@userId" id="userId" />
+                        <input type="hidden" name="ArtistId" value="@artist.UserId" />
+                        <input type="hidden" name="ServiceId" id="serviceIdInput" />
+                        <input type="hidden" name="Date" id="hiddenDate" />
+                        <input type="hidden" name="Time" id="hiddenTime" />
+                        <div class="popup-details-d">
+                            <table>
+                                <tr>
+                                    <td><strong>Ngày:</strong></td>
+                                    <td id="popupDate"></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Thời Gian:</strong></td>
+                                    <td id="popupTime"></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Dịch vụ:</strong></td>
+                                    <td id="popupService"></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Đơn giá:</strong></td>
+                                    <td id="popupServicePrice"></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Người Makeup:</strong></td>
+                                    <td id="popupMasseuse"></td>
+                                </tr>
+                            </table>
+                        </div>
+                    <div class="form-group-container-d">
+                         <button type="submit" class="book-appointment-d" onclick="return checkLogin()">Thanh toán</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        }
+        else
+        {
+            <p>Không tìm thấy thông tin thợ makeup.</p>
+        }
+        <footer class="section footer-classic context-dark">
+            @await Html.PartialAsync("Partial/FooterPartial")
+        </footer>
+    </div>
+    <div class="snackbars" id="form-output-global"></div>
+    <script src="~/js/core.min.js"></script>
+    <script src="~/js/script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          let currentStep = 1;
+          const totalSteps = 4;
+
+          const steps = document.querySelectorAll(".step-d");
+          const stepContents = document.querySelectorAll(".step-content-d");
+          const prevBtn = document.querySelector(".prev-d");
+          const nextBtn = document.querySelector(".next-d");
+
+          function updateSteps() {
+            // Cập nhật trạng thái active của các bước
+            steps.forEach((step) => {
+              step.classList.toggle("active", step.dataset.step == currentStep);
+            });
+
+            // Hiển thị nội dung bước hiện tại
+            stepContents.forEach((content) => {
+              content.classList.toggle(
+                "active",
+                content.dataset.content == currentStep
+              );
+            });
+
+            // Kiểm tra khi nào làm đậm/mờ nút
+            prevBtn.disabled = currentStep === 1;
+            prevBtn.style.opacity = prevBtn.disabled ? "0.6" : "1";
+            prevBtn.style.fontWeight = prevBtn.disabled ? "normal" : "bold";
+
+            nextBtn.disabled = currentStep === totalSteps;
+            nextBtn.style.opacity = nextBtn.disabled ? "0.6" : "1";
+            nextBtn.style.fontWeight = nextBtn.disabled ? "normal" : "bold";
+          }
+
+          nextBtn.addEventListener("click", () => {
+            if (currentStep < totalSteps) {
+              currentStep++;
+              updateSteps();
+            }
+          });
+
+          prevBtn.addEventListener("click", () => {
+            if (currentStep > 1) {
+              currentStep--;
+              updateSteps();
+            }
+          });
+
+          steps.forEach((step) => {
+            step.addEventListener("click", () => {
+              const selectedStep = parseInt(step.dataset.step);
+              if (selectedStep !== currentStep) {
+                currentStep = selectedStep;
+                updateSteps();
+              }
+            });
+          });
+
+          updateSteps(); // Khởi tạo giao diện đúng trạng thái
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+          const timeSlots = document.querySelectorAll(".time-slot-d");
+
+          timeSlots.forEach((slot) => {
+            slot.addEventListener("click", function () {
+              // Xóa class "selected" khỏi tất cả các ô thời gian
+              timeSlots.forEach((s) => s.classList.remove("selected"));
+              // Thêm class "selected" vào ô vừa được nhấn
+              this.classList.add("selected");
+            });
+          });
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+          let currentDate = new Date();
+          let selectedDay = null; // Lưu ngày được chọn
+          const monthNames = [
+            "Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6",
+            "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"
+          ];
+
+          function renderCalendar(month, year) {
+            const calendarBody = document.querySelector(".calendar-body-d");
+            const monthName = document.querySelector(".calendar-title-d .month-name-d");
+            const yearDisplay = document.querySelector(".calendar-title-d .year-d");
+
+            if (!calendarBody || !monthName || !yearDisplay) {
+              console.error("Không tìm thấy phần tử lịch!");
+              return;
+            }
+
+            calendarBody.innerHTML = ""; // Xóa lịch cũ
+            monthName.textContent = monthNames[month]; // Cập nhật tên tháng
+            yearDisplay.textContent = year; // Cập nhật năm
+
+            let firstDay = new Date(year, month, 1).getDay();
+            let daysInMonth = new Date(year, month + 1, 0).getDate();
+
+            // 🔥 **Điều chỉnh nếu Chủ Nhật (0), để lịch bắt đầu từ Thứ Hai**
+            let adjustedFirstDay = firstDay === 0 ? 6 : firstDay - 1;
+
+            // 🔳 **Thêm ngày từ tháng trước để căn chỉnh**
+            let prevMonthDays = new Date(year, month, 0).getDate();
+            for (let i = adjustedFirstDay; i > 0; i--) {
+              let emptyCell = document.createElement("div");
+              emptyCell.classList.add("day", "empty");
+              emptyCell.textContent = prevMonthDays - i + 1; // Hiển thị ngày của tháng trước
+              calendarBody.appendChild(emptyCell);
+            }
+
+            // 📅 **Thêm ngày của tháng hiện tại**
+            for (let day = 1; day <= daysInMonth; day++) {
+              let dayCell = document.createElement("button");
+              dayCell.classList.add("day");
+              dayCell.textContent = day;
+
+              // 🟡 **Đánh dấu ngày hôm nay**
+              let today = new Date();
+              if (
+                day === today.getDate() &&
+                month === today.getMonth() &&
+                year === today.getFullYear()
+              ) {
+                dayCell.classList.add("today");
+              }
+
+              // ✨ **Thêm sự kiện click để chọn ngày**
+              dayCell.addEventListener("click", function () {
+                // Xóa lớp "selected" khỏi ngày trước đó nếu có
+                if (selectedDay) {
+                  selectedDay.classList.remove("selected");
+                }
+
+                // Gán ngày mới vào biến selectedDay và thêm class "selected"
+                selectedDay = dayCell;
+                dayCell.classList.add("selected");
+
+                // 🟠 **Xóa class "today" khỏi ngày hôm nay nếu nó không được chọn**
+                document.querySelectorAll(".day.today").forEach((todayCell) => {
+                  if (todayCell !== selectedDay) {
+                    todayCell.classList.remove("today");
+                    todayCell.classList.add("today-deselected");
+                  }
+                });
+
+                console.log(`Bạn đã chọn ngày: ${day} ${monthNames[month]} ${year}`);
+              });
+
+              calendarBody.appendChild(dayCell);
+            }
+          }
+
+          // 📌 **Sự kiện điều hướng tháng**
+          document.querySelector(".prev-month-d").addEventListener("click", () => {
+            currentDate.setMonth(currentDate.getMonth() - 1);
+            renderCalendar(currentDate.getMonth(), currentDate.getFullYear());
+          });
+
+          document.querySelector(".next-month-d").addEventListener("click", () => {
+            currentDate.setMonth(currentDate.getMonth() + 1);
+            renderCalendar(currentDate.getMonth(), currentDate.getFullYear());
+          });
+
+          // 🚀 **Hiển thị lịch lần đầu**
+          renderCalendar(currentDate.getMonth(), currentDate.getFullYear());
+        });
+
+         document.addEventListener("DOMContentLoaded", function () {
+          const bookAppointmentBtn = document.querySelector(".book-appointment-d");
+          const popup = document.getElementById("appointmentPopup");
+          const closePopup = document.querySelector(".close-popup-d");
+
+          bookAppointmentBtn.addEventListener("click", function () {
+            // Ngày
+            const selectedDate =
+              document.querySelector(".calendar-body-d .day.selected")?.textContent +
+              " " +
+              document.querySelector(".calendar-title-d .month-name-d")?.textContent +
+              " " +
+              document.querySelector(".calendar-title-d .year-d")?.textContent || "Không có";
+
+            // Giờ
+            const selectedTime = document.querySelector(".time-slot-d.selected")?.textContent || "Không có";
+
+            const serviceSelect = document.querySelector(".service-select-d");
+            const selectedServiceOption = serviceSelect?.selectedOptions[0];
+            const selectedService = selectedServiceOption?.textContent || "Không có";
+            const selectedServicePrice = selectedServiceOption?.dataset.price || "Không rõ";
+            const serviceId = selectedServiceOption?.value;
+            console.log("Service ID:", serviceId);
+
+            const selectedMasseuse =
+              document.querySelector(".artist-select-d option[selected]")?.textContent ||
+              document.querySelector(".artist-select-d")?.textContent ||
+              "Không có";
+            const serviceIdInput = document.getElementById("serviceIdInput");
+            if (serviceIdInput && selectedServiceOption) {
+                serviceIdInput.value = selectedServiceOption.value;
+            }
+            // Cập nhật popup
+            document.getElementById("popupDate").textContent = selectedDate;
+            document.getElementById("popupTime").textContent = selectedTime;
+            document.getElementById("popupService").textContent = selectedService;
+            document.getElementById("popupServicePrice").textContent = selectedServicePrice + " VNĐ";
+            document.getElementById("popupMasseuse").textContent = selectedMasseuse;
+            document.getElementById("hiddenDate").value = selectedDate;
+            document.getElementById("hiddenTime").value = selectedTime;
+
+            popup.classList.add("show");
+            document.body.style.overflow = 'hidden';
+          });
+
+          closePopup.addEventListener("click", function () {
+            popup.classList.remove("show");
+            document.body.style.overflow = '';
+          });
+
+          window.addEventListener("click", function (event) {
+            if (event.target === popup) {
+              popup.classList.remove("show");
+              document.body.style.overflow = '';
+            }
+          });
+        });
+
+    </script>
+    <script>
+        function checkLogin() {
+            const userId = document.getElementById('userId').value;
+            if (!userId) {
+                alert("Bạn cần đăng nhập để tiếp tục thanh toán.");
+                return false; // chặn form submit
+            }
+            return true; // cho phép submit
+        }
+    </script>
+
+    <!--coded by dyoma-->
+</body>
+
+</html>

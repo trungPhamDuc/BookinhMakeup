@@ -1,0 +1,486 @@
+﻿@page
+@model www_Blush_Brush.Pages.Home.ViewModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<!DOCTYPE html>
+<html class="wide wow-animation" lang="en">
+
+<head>
+    <title>Trang chủ</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" href="~/images/favicon2.ico" sizes="128x128" type="image/x-icon">
+    <link rel="stylesheet" type="text/css"
+          href="//fonts.googleapis.com/css?family=DM+Sans:400,400i,500,500i,700,700i&amp;display=swap">
+    <link rel="stylesheet" href="~/css/bootstrap.css">
+    <link rel="stylesheet" href="~/css/fonts.css">
+    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+
+    <style>
+        .ie-panel {
+            display: none;
+            background: #212121;
+            padding: 10px 0;
+            box-shadow: 3px 3px 5px 0 rgba(0, 0, 0, .3);
+            clear: both;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        html.ie-10 .ie-panel,
+        html.lt-ie-10 .ie-panel {
+            display: block;
+        }
+    </style>
+</head>
+
+<!-- AOS JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+      AOS.init({
+        duration: 3000,
+        delay: 400,
+        once: false // Cho phép hiệu ứng chạy lại khi kéo trang
+      });
+    });
+</script>
+
+
+<body>
+    <div class="ie-panel">
+        <a href="http://windows.microsoft.com/en-US/internet-explorer/">
+            <img src="~/images/ie8-panel/warning_bar_0000_us.jpg" height="42" width="820"
+                 alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today.">
+        </a>
+    </div>
+    <div class="preloader">
+        <div class="preloader-body">
+            <div class="cssload-container">
+                <div class="cssload-speeding-wheel"></div>
+            </div>
+            <p>Loading...</p>
+        </div>
+    </div>
+    <div class="page">
+        <header class="section page-header">
+            @await Html.PartialAsync("Partial/HeaderPartial")
+        </header>
+        <!--Main bunner-->
+        <div class="section section-main-bunner context-dark" id="home">
+            <div class="main-bunner-img bg-overlay-1"
+                 style="background-image: url('@Url.Content("~/images/slide-01.jpg")'); background-size: cover;"></div>
+            <div class="main-bunner-inner">
+                <div class="container wide">
+                    <div class="row justify-content-left">
+                        <div class="col-lg-5">
+                            <h1 data-caption-animate="fadeInUp" data-caption-delay="100">Makeup <br class="br-none"> Theo Yêu Cầu</h1>
+                            <p class="lead text-custom-blue" data-caption-animate="fadeInUp" data-caption-delay="250">
+                                Bạn đang muốn
+                                tìm kiếm một địa chỉ uy tín chuyên makeup tại nhà đúng không hãy đến với chúng tôi để được tư vấn và hỗ
+                                trợ tốt nhất!
+                            </p>
+                            <div class="btn-wrap">
+                                <div class="group-xxl group-middle">
+                                    <a class="button button-primary button-md button-round-2" href="#"
+                                       data-caption-animate="fadeInUp" data-caption-delay="450" id="book-now"> Đặt Lịch Ngay</a>
+                                </div>
+                            </div>
+                            <div class="phone-wrap phone-wrap-2">
+                                <div class="phone-link-title">Zalo:</div>
+                                <a class="phone-link" href="https://zalo.me/0971503692" target="_blank">0971503692</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Testimonials-->
+        <div class="section section-lg bg-gray-150">
+            <div class="text-center">
+
+                <h2 class="title">Đánh giá từ khách hàng</h2>
+                <div class="subtitle-box">
+                    <div class="subtitle-box-text">Reviews from:</div>
+                    <div class="subtitle-box-media">
+                        <img src="~/images/title-img-153x38.png" alt="" width="153" height="38" />
+                    </div>
+                </div>
+            </div>
+            <div class="owl-carousel owl-theme-1" data-items="1" data-sm-items="1" data-md-items="1" data-lg-items="1"
+                 data-xl-items="2" data-xxl-items="3" data-margin="15px" data-nav="false" data-dots="true" data-autoplay="8000">
+                <div class="testimonial-box">
+                    <div class="testimonial-title">Tuyệt vời!</div>
+                    <div class="testimonial-rate">
+                        <img src="~/images/rate-2-146x27.png" alt="" width="146" height="27" />
+                    </div>
+                    <div class="testimonial-text">
+                        “Trải nghiệm tuyệt vời! Dịch vụ makeup rất chuyên nghiệp, thợ makeup tận tâm và
+                        tư vấn kỹ càng. Mình rất hài lòng với phong cách trang điểm, lên hình cực xinh. Sẽ ủng hộ dài lâu! ”
+                    </div>
+                    <div class="testimonial-name">— Trung Duc</div>
+                </div>
+                <div class="testimonial-box">
+                    <div class="testimonial-title">Quá tốt!</div>
+                    <div class="testimonial-rate">
+                        <img src="~/images/rate-1-146x27.png" alt="" width="146" height="27" />
+                    </div>
+                    <div class="testimonial-text">
+                        “ Dịch vụ chất lượng! Đặt lịch nhanh chóng, nhân viên nhiệt tình, makeup rất tự
+                        nhiên và bền lâu cả ngày. Giá cả hợp lý, đáng đồng tiền!”
+                    </div>
+                    <div class="testimonial-name">— Quang Huy</div>
+                </div>
+                <div class="testimonial-box">
+                    <div class="testimonial-title">Quá bất ngờ!</div>
+                    <div class="testimonial-rate">
+                        <img src="~/images/rate-1-146x27.png" alt="" width="146" height="27" />
+                    </div>
+                    <div class="testimonial-text">
+                        "Rất hài lòng! Trang điểm đẹp, đúng yêu cầu và hợp với khuôn mặt mình. Không bị
+                        bí da hay dày phấn quá. Sẽ giới thiệu cho bạn bè!"
+                    </div>
+                    <div class="testimonial-name">— Tiến Toàn</div>
+                </div>
+                <div class="testimonial-box">
+                    <div class="testimonial-title">Xuất sắc!</div>
+                    <div class="testimonial-rate">
+                        <img src="~/images/rate-2-146x27.png" alt="" width="146" height="27" />
+                    </div>
+                    <div class="testimonial-text">
+                        “Dịch vụ makeup ở đây quá tuyệt vời! Chuyên viên cực kỳ chuyên nghiệp, tư vấn
+                        tận tâm và giúp mình có được lớp trang điểm hoàn hảo. Nhìn vào gương mà còn không nhận ra chính mình vì quá
+                        xinh luôn! 🥰 Nhất định sẽ quay lại!”
+                    </div>
+                    <div class="testimonial-name"> — Duc.</div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Services-->
+        <div class="section section section-lg" id="services">
+            <div class="container wide">
+                <div class="row row-md-30">
+
+                    <div class="col-md-5 col-lg-5" data-aos="fade-right">
+                        <div class="subtitle">Dịch vụ từ Blush&Brush</div>
+                        <h2 class="title">Phong cách truyền thống</h2>
+                        <div class="subtitle-2">
+                            Makeup Truyền Thống tôn vinh nét đẹp tự nhiên, tinh tế và thanh lịch. Phong cách nhẹ
+                            nhàng nhưng vẫn cuốn hút, phù hợp cho mọi dịp quan trọng.
+                        </div>
+                        <div class="btn-wrap">
+                            <a class="button button-primary button-md" href="/Services/View"
+                               data-caption-animate="fadeInUp" data-caption-delay="450">Book Now</a>
+                        </div>
+                    </div>
+
+                    <div class="col-md-7 col-lg-7" data-aos="fade-left">
+                        <div class="video-wrap mt-md-5 mt-sm-5">
+                            <a class="video-cover"
+                               style="background-image: url('@Url.Content("~/images/video-prev-1050x591.jpg")');"
+                               data-lightgallery="item"
+                               href="https://www.youtube.com/watch?v=LB-aFvdSPLY">
+                                <span class="icon mdi mdi-play-circle-outline"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-wrap">
+                    <div class="row row-md-30" data-aos="fade-right">
+                        <div class="col-md-6 col-lg-6">
+                            <img src="~/images/1.jpg" alt="" width="580" height="550" />
+                        </div>
+                        <div class="col-md-6 col-lg-6">
+                            <div class="mt-4" data-aos="fade-left">
+                                <h2 class="title">Phong cách hiện đại</h2>
+                                <div class="subtitle-2">
+                                    Makeup Hiện Đại mang đến vẻ đẹp thời thượng, sắc sảo nhưng vẫn tự nhiên. Phong
+                                    cách trang điểm này giúp tôn lên đường nét gương mặt, phù hợp cho mọi dịp từ công sở đến sự kiện. Lựa
+                                    chọn hoàn hảo để bạn luôn cuốn hút và tự tin.
+                                </div>
+                                <div class="btn-wrap">
+                                    <a class="button button-secondary button-md" href="/Services/View"
+                                       data-caption-animate="fadeInUp" data-caption-delay="450">Book Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Divider-->
+        <div class="section">
+            <div class="container wide">
+                <div class="divider"></div>
+            </div>
+        </div>
+        <!--How Works-->
+        <div class="section section section-lg">
+            <div class="container wide">
+                <div class="text-center">
+                    <div class="subtitle">Makeup thật dễ dàng</div>
+                    <h2 class="title">Cách mà Blush&Brush hoạt động</h2>
+                    <div class="subtitle-2">Booking makeup chưa bao giờ dễ dàng hơn thế</div>
+                </div>
+                <div class="row row-md-80 row-sm-50">
+                    <div class="col-xs-10 col-md-6 col-lg-4" data-aos="fade-up">
+                        <div class="box-info-modern">
+                            <div class="box-info-modern-figure">
+                                <img src="~/images/box-home-1-390x344.jpg" alt="" width="390"
+                                     height="344" />
+                            </div>
+                            <h4 class="box-info-modern-title">Lựa chọn dịch vụ</h4>
+                            <div class="box-info-modern-text">Khách hàng tìm kiếm và lựa chọn dịch vụ makeup trên website</div>
+                        </div>
+                    </div>
+                    <div class="col-xs-10 col-md-6 col-lg-4" data-aos="fade-up">
+                        <div class="box-info-modern">
+                            <div class="box-info-modern-figure">
+                                <img src="~/images/box-home-2-390x344.jpg" alt="" width="390"
+                                     height="344" />
+                            </div>
+                            <h4 class="box-info-modern-title">Đặt lịch makeup</h4>
+                            <div class="box-info-modern-text">
+                                Khách hàng tiến hành chọn thời gian, địa điểm makeup và giá dịch vụ
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-10 col-md-6 col-lg-4" data-aos="fade-up">
+                        <div class="box-info-modern">
+                            <div class="box-info-modern-figure">
+                                <img src="~/images/box-home-3-390x344.jpg" alt="" width="390"
+                                     height="344" />
+                            </div>
+                            <h4 class="box-info-modern-title">Thư giãn</h4>
+                            <div class="box-info-modern-text">
+                                Thư giãn và tận hưởng dịch vụ makeup đến từ Blush&Brush
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Divider-->
+        <div class="section">
+            <div class="container wide">
+                <div class="divider"></div>
+            </div>
+        </div>
+
+        <!--Gift Voucher-->
+        <div class="section section section-xl bg-gray-150">
+            <div class="container wide">
+                <div class="text-center">
+                    <h2 class="title">Những ưu đãi vô cùng hấp dẫn</h2>
+                    <div class="subtitle-2">Nhận ưu đãi hấp dẫn khi sử dụng dịch vụ từ Blush&Brush.</div>
+                </div>
+                <div class="row row-md-80 row-sm-50">
+                    <div class="col-xs-10 col-md-6 col-lg-4 text-center" data-aos="fade-up">
+                        <div class="voucher-box">
+                            <div class="voucher-name">Nhận 10% ưu đãi</div>
+                            <div class="voucher-title">Khách hàng mới</div>
+                            <div class="voucher-text">Ưu đãi chỉ dành riêng cho khách hàng lần đầu dùng dịch vụ.</div><a class="button button-secondary button-md" href="/Services/View">Nhận ngay!</a>
+                        </div>
+                    </div>
+                    <div class="col-xs-10 col-md-6 col-lg-4 text-center" data-aos="fade-up">
+                        <div class="voucher-box-dark">
+                            <div class="voucher-name">Nhận 30% ưu đãi</div>
+                            <div class="voucher-title">Khách hàng trung thành</div>
+                            <div class="voucher-text">Lời cảm ơn đến từ Blush&Brush dành cho những khách hàng trung thành.</div>
+                            <a class="button button-secondary-dark button-md" href="/Services/View">Nhận ngay!</a>
+                        </div>
+                    </div>
+                    <div class="col-xs-10 col-md-6 col-lg-4 text-center" data-aos="fade-up">
+                        <div class="voucher-box">
+                            <div class="voucher-name">Nhận 20% ưu đãi</div>
+                            <div class="voucher-title">Đặt lịch vào dịp lễ</div>
+                            <div class="voucher-text">Blush&Brush luôn có những ưu đãi hấp dẫn khi đặt lịch vào dịp lễ.</div><a class="button button-secondary button-md" href="/Services/View">Nhận ngay!</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--vacancy-->
+        <div class="section section-custom">
+            <div class="container wide">
+                <div class="text-center" data-aos="fade-up">
+                    <!-- <br class="br-none"> -->
+                    <h2 class="title">Bạn có phải là người <br class="br-none"> trang điểm chuyên nghiệp?</h2>
+                    <div class="subtitle-2 big">Hãy tham đội ngũ của chúng tôi để thúc đẩy sự nghiệp của bạn!</div>
+                    <div class="row justify-content-center">
+                        <a class="button button-secondary button-md" href="/Users/Artists/Register">Tham gia</a>
+                    </div>
+                    <div class="img-wrap">
+                        <img src="~/images/home-4-830x446.jpg" alt="" width="830" height="446" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--FAQ-->
+        <div class="section section section-xl">
+            <div class="container wide">
+                <div class="row row-md-80 row-sm-50">
+                    <div class="col-sm-12 col-lg-4">
+                        <div class="subtitle">Câu hỏi <br class="br-none">thường gặp</div>
+                    </div>
+                    <div class="col-sm-12 col-lg-8">
+                        <div class="card-group-custom" id="accordion1" role="tablist" aria-multiselectable="false">
+                            <!--Bootstrap card-->
+                            <article class="card card-custom card-group-custom card-corporate">
+                                <div class="card-heading" role="tab">
+                                    <div class="card-title">
+                                        <a class="collapsed" id="accordion1-card-head-alasxtaj" data-toggle="collapse"
+                                           data-parent="#accordion1" href="#accordion1-card-body-xlhnxvuc"
+                                           aria-controls="accordion1-card-body-xlhnxvuc" aria-expanded="false" role="button">
+                                            Bao lâu thì
+                                            người makeup sẽ đến điểm makeup kể từ khi đặt lịch?
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="card-collapse collapse" id="accordion1-card-body-xlhnxvuc"
+                                     aria-labelledby="accordion1-card-head-alasxtaj" data-parent="#accordion1" role="tabpanel">
+                                    <div class="card-body" style="font-family: 'Roboto', Arial, sans-serif;">
+                                        <p>
+                                            Thời gian chuyên viên makeup đến điểm hẹn sau khi đặt lịch sẽ phụ thuộc vào nhiều yếu tố như
+                                            khoảng cách, lịch làm việc và loại dịch vụ bạn chọn. Thông thường, nếu bạn đặt lịch trước, chuyên
+                                            viên sẽ đến đúng thời gian đã hẹn. Đối với các trường hợp đặt lịch gấp trong ngày, thời gian chờ
+                                            có thể dao động từ 30 - 60 phút, tùy vào vị trí của bạn và lịch trình của chuyên viên. Trong những
+                                            khung giờ cao điểm như lễ, Tết hoặc cuối tuần, thời gian di chuyển có thể lâu hơn, vì vậy bạn nên
+                                            đặt lịch trước để đảm bảo không bị trễ hẹn.
+                                        </p>
+                                    </div>
+                                </div>
+                            </article>
+                            <!--Bootstrap card-->
+                            <article class="card card-custom card-group-custom card-corporate">
+                                <div class="card-heading" role="tab">
+                                    <div class="card-title">
+                                        <a class="collapsed" id="accordion1-card-head-qtsmcpyn" data-toggle="collapse"
+                                           data-parent="#accordion1" href="#accordion1-card-body-yhmsmbvt"
+                                           aria-controls="accordion1-card-body-yhmsmbvt" aria-expanded="false" role="button">
+                                            Thời gian makeup
+                                            trung bình là bao lâu?
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="card-collapse collapse" id="accordion1-card-body-yhmsmbvt"
+                                     aria-labelledby="accordion1-card-head-qtsmcpyn" data-parent="#accordion1" role="tabpanel">
+                                    <div class="card-body" style="font-family: 'Roboto', Arial, sans-serif;">
+                                        <p>
+                                            Thời gian makeup trung bình thường kéo dài từ 30 phút đến 1,5 giờ, tùy thuộc vào phong cách trang
+                                            điểm mà bạn chọn. Nếu bạn yêu thích phong cách nhẹ nhàng, tự nhiên, thời gian makeup sẽ khoảng 30
+                                            - 45 phút. Đối với makeup dự tiệc hoặc sự kiện, quá trình này thường mất từ 45 - 60 phút để đảm
+                                            bảo lớp trang điểm đẹp và bền.
+                                        </p>
+                                    </div>
+                                </div>
+                            </article>
+                            <!--Bootstrap card-->
+                            <article class="card card-custom card-group-custom card-corporate">
+                                <div class="card-heading" role="tab">
+                                    <div class="card-title">
+                                        <a class="collapsed" id="accordion1-card-head-shlfwmgn" data-toggle="collapse"
+                                           data-parent="#accordion1" href="#accordion1-card-body-cqwdacur"
+                                           aria-controls="accordion1-card-body-cqwdacur" aria-expanded="false" role="button">
+                                            Nếu cần hủy hoặc
+                                            thay đổi lịch hẹn thì phải làm thế nào?
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="card-collapse collapse" id="accordion1-card-body-cqwdacur"
+                                     aria-labelledby="accordion1-card-head-shlfwmgn" data-parent="#accordion1" role="tabpanel">
+                                    <div class="card-body" style="font-family: 'Roboto', Arial, sans-serif;">
+                                        <p>
+                                            Nếu cần hủy hoặc thay đổi lịch hẹn, bạn có thể dễ dàng thực hiện qua ứng dụng booking makeup.
+                                            Trong trường hợp không thể thực hiện qua ứng dụng, bạn có thể liên hệ trực tiếp với bộ phận hỗ trợ
+                                            khách hàng để được trợ giúp. Lưu ý rằng một số dịch vụ có thể yêu cầu thông báo trước một khoảng
+                                            thời gian nhất định để tránh bị mất phí hủy.
+                                        </p>
+                                    </div>
+                                </div>
+                            </article>
+                            <!--Bootstrap card-->
+                            <article class="card card-custom card-group-custom card-corporate">
+                                <div class="card-heading" role="tab">
+                                    <div class="card-title">
+                                        <a class="collapsed" id="accordion1-card-head-axgjvlha" data-toggle="collapse"
+                                           data-parent="#accordion1" href="#accordion1-card-body-axwynooc"
+                                           aria-controls="accordion1-card-body-axwynooc" aria-expanded="false" role="button">
+                                            Ứng dụng có hỗ
+                                            trợ tư vấn phong cách trước khi đặt lịch không?
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="card-collapse collapse" id="accordion1-card-body-axwynooc"
+                                     aria-labelledby="accordion1-card-head-axgjvlha" data-parent="#accordion1" role="tabpanel">
+                                    <div class="card-body" style="font-family: 'Roboto', Arial, sans-serif;">
+                                        <p>
+                                            Bạn có thể trò chuyện trực tiếp với chuyên viên hoặc sử dụng tính năng chat tư vấn để được hướng
+                                            dẫn chọn phong cách trang điểm phù hợp với sự kiện, xu hướng, hoặc sở thích cá nhân.
+                                        </p>
+                                    </div>
+                                </div>
+                            </article>
+                            <!--Bootstrap card-->
+                            <article class="card card-custom card-group-custom card-corporate">
+                                <div class="card-heading" role="tab">
+                                    <div class="card-title">
+                                        <a class="collapsed" id="accordion1-card-head-eqiypqcb" data-toggle="collapse"
+                                           data-parent="#accordion1" href="#accordion1-card-body-xxrtkqtu"
+                                           aria-controls="accordion1-card-body-xxrtkqtu" aria-expanded="false" role="button">
+                                            Có thể chọn
+                                            chuyên viên makeup theo sở thích cá nhân không?
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="card-collapse collapse" id="accordion1-card-body-xxrtkqtu"
+                                     aria-labelledby="accordion1-card-head-eqiypqcb" data-parent="#accordion1" role="tabpanel">
+                                    <div class="card-body" style="font-family: 'Roboto', Arial, sans-serif;">
+                                        <p>
+                                            Bạn có thể dựa trên các yếu tố như phong cách trang điểm, kinh nghiệm, hoặc đánh giá từ những
+                                            khách hàng trước đó để lựa chọn chuyên viên phù hợp. Ứng dụng còn cung cấp thông tin về
+                                            portfolio hoặc hình ảnh công việc trước đó của chuyên viên để bạn dễ dàng đưa ra quyết định.
+                                        </p>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="section footer-classic context-dark">
+            @await Html.PartialAsync("Partial/FooterPartial")
+        </footer>
+    </div>
+    <div class="snackbars" id="form-output-global"></div>
+    <!-- Chat bubble button -->
+    <div id="chatBubble" onclick="toggleChat()" style="position: fixed; bottom: 40px; right: 20px; z-index: 1000; cursor: pointer;">
+        <div style="background-color: #007bff; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 30px; box-shadow: 0 0 10px rgba(0,0,0,0.3);">
+            <i class="fas fa-comments"></i>
+        </div>
+    </div>
+    
+    <!-- Chat box -->
+    <div id="chatBox" style="display: none; position: fixed; bottom: 40px; right: 90px; width: 300px; height: 400px; background-color: white; border: 1px solid #ccc; box-shadow: 0 0 10px rgba(0,0,0,0.3); z-index: 1001; border-radius: 10px; overflow: hidden;">
+        <div style="background-color: #007bff; color: white; padding: 10px; font-weight: bold;">Blush&Brush</div>
+        <iframe src="/Chat/Index" style="width: 100%; height: 100%; border: none;"></iframe>
+    </div>
+
+    <script src="~/js/core.min.js"></script>
+    <script src="~/js/script.js"></script>
+    <!--coded by dyoma-->
+    <script>
+        function toggleChat() {
+            const box = document.getElementById("chatBox");
+            box.style.display = box.style.display === "none" ? "block" : "none";
+        }
+    </script>
+</body>
+</html>

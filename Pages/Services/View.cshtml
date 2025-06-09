@@ -1,0 +1,352 @@
+﻿@page
+@model www_Blush_Brush.Pages.Services.ViewModel
+@using www_Blush_Brush.Models
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    var userId = HttpContext.Session.GetString("userId");
+    var userrole = HttpContext.Session.GetString("UserRole");
+    var favoriteArtistIds = (List<Guid>)ViewData["FavoriteArtistIds"];
+}
+
+<!DOCTYPE html>
+<html class="wide wow-animation" lang="en">
+
+<head>
+    <title>Dịch vụ makeup - Blush&Brush</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" href="~/images/favicon2.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css"
+          href="//fonts.googleapis.com/css?family=DM+Sans:400,400i,500,500i,700,700i&amp;display=swap">
+    <link rel="stylesheet" href="~/css/bootstrap.css">
+    <link rel="stylesheet" href="~/css/fonts.css">
+    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Thêm CSS cho Owl Carousel -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+
+    <!-- Thêm JS cho Owl Carousel -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <!-- Swiper.js CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <!-- Swiper.js JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .searchTerm::placeholder {
+            font-size: 15px;
+        }
+    </style>
+
+    <style>
+        .ie-panel {
+            display: none;
+            background: #212121;
+            padding: 10px 0;
+            box-shadow: 3px 3px 5px 0 rgba(0, 0, 0, .3);
+            clear: both;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        html.ie-10 .ie-panel,
+        html.lt-ie-10 .ie-panel {
+            display: block;
+        }
+
+        /* Định dạng slide */
+        .swiper-slide {
+            width: 231px !important;
+            height: 169px;
+            /* Giảm chiều cao */
+            background-color: #faacb7;
+            /* Nền hồng nhạt */
+            padding: 5px;
+            /* Giảm padding */
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+            .swiper-slide img {
+                width: 150px;
+                height: 120px;
+                object-fit: cover;
+                border-radius: 10px;
+                margin-top: 5px;
+            }
+
+            /* Chữ mặc định là trắng */
+            .swiper-slide span {
+                display: block;
+                margin-top: 3px; /* Giảm khoảng cách giữa các span */
+                color: white;
+                font-size: 13px; /* Giảm cỡ chữ */
+                font-weight: bold;
+                transition: color 0.3s ease-in-out;
+            }
+
+            /* Khi di chuột vào, chữ chuyển thành đen */
+            .swiper-slide:hover span {
+                color: black;
+            }
+
+            /* Hover vào layer thì phóng to nhẹ */
+            .swiper-slide:hover {
+                transform: scale(1.05);
+            }
+
+        .swiper {
+            margin: 0 40px;
+        }
+
+        .article-card {
+            height: 93%;
+        }
+
+        .article-card {
+            position: relative;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            padding-top: 10px;
+        }
+
+        .favorite-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #ccc;
+            font-size: 20px;
+            z-index: 2;
+            text-decoration: none;
+        }
+
+            .favorite-icon:hover {
+                color: red;
+            }
+
+        .favorite-active {
+            color: red;
+        }
+
+        .heart-icon {
+            font-size: 45px; 
+        }
+
+      
+    </style>
+</head>
+
+<body>
+    <div class="ie-panel">
+        <a href="http://windows.microsoft.com/en-US/internet-explorer/">
+            <img src="images/ie8-panel/warning_bar_0000_us.jpg" height="42" width="820"
+                 alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today.">
+        </a>
+    </div>
+    <div class="preloader">
+        <div class="preloader-body">
+            <div class="cssload-container">
+                <div class="cssload-speeding-wheel"></div>
+            </div>
+            <p>Loading...</p>
+        </div>
+    </div>
+    <div class="page">
+        <header class="section page-header">
+            @await Html.PartialAsync("Partial/HeaderPartial")
+        </header>
+
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                
+                @foreach (Service service in ViewBag.ListMakeup)
+                {
+                    <div class="swiper-slide">
+                        <a href="/Services/View?makeupId=@service.Id">
+                            <img src="@service.ImageUrl" alt="@service.Name" />
+                            <span>@service.Name</span>
+                            <span>Mức giá: @string.Format("{0:N0}đ", service.BasePrice)</span>
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+        <br>
+        <div class="section">
+            <div class="container wide">
+                <div class="divider"></div>
+            </div>
+        </div>
+        <!-- thợ make  -->
+        <div class="heading-container">
+            <div class="heading-title">
+                <h2>Danh Sách <span>Thợ Makeup</span></h2>
+            </div>
+            <div class="search-history-wrap">
+                <!-- Thanh tìm kiếm -->
+                <form method="get" action="/Services/View" class="search">
+                    <input type="text" name="keyword" class="searchTerm" placeholder="Tìm kiếm theo style makeup hoặc địa chỉ " value="@ViewData["Keyword"]" />
+                    <button type="submit" class="searchButton">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </form>
+
+                <!-- Biểu tượng giỏ hàng -->
+                @if (userrole != "artist" && userrole != "admin")
+                {
+                    <div class="cart-icon">
+                        <a href="/History/BookingHistory?userId=@userId" title="Giỏ hàng">
+                            <i class="fa fa-shopping-cart"></i>
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="section-area section-sp2 popular-courses-bx">
+            <div class="container">
+                <div class="row">
+                    @foreach (MakeupArtist makeupArtist in ViewBag.ListMakeupArtist)
+                    {
+                        bool isFavorited = favoriteArtistIds.Contains(makeupArtist.Id);
+                        var firstImageUrl = makeupArtist.User.ArtistMedia.FirstOrDefault()?.MediaUrl ?? "images/t2.jpg";
+                        <div class="col-md-4">
+                            <div class="article-card">
+                                <a href="javascript:void(0);" class="favorite-icon toggle-favorite" data-artist-id="@makeupArtist.Id">
+                                    <i class="fa fa-heart heart-icon @(isFavorited ? "favorite-active" : "")"></i>
+                                </a>
+                                <img src="@firstImageUrl" alt="Artist Image" style="width: 100%; height: 250px; object-fit: cover;" />
+                                <div class="article-content">
+                                    <h4>Makeup: @makeupArtist.User.Name</h4>
+                                    <p>Vị trí: @makeupArtist.Location</p>
+                                    <p>Phong Cách: @string.Join(", ", makeupArtist.Services.Select(s => s.Name))</p>
+                                    <div class="review">
+                                        <span class="rating">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star-half-alt"></i>
+                                            <i class="fa fa-star-half-alt"></i>
+                                        </span>
+                                        <span class="comments">20 bình luận</span>
+                                    </div>
+                                    <a href="/BookingMakeup/View?artistId=@makeupArtist.UserId" class="btn btn-primary">Đặt lịch ngay</a>
+                                    <a href="/Detail/View?artistId=@makeupArtist.UserId" class="btn btn-primary">Chi Tiết</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+        
+                @await Html.PartialAsync("Partial/Paging", new www_Blush_Brush.Pages.Partial.PagingModel
+                (
+                         "/Services/View",
+                         ViewBag.CurrentPage,
+                         ViewBag.TotalPages,
+                         (string?)ViewData["Keyword"],
+                         ViewData["makeupId"] is Guid id ? (Guid?)id : null
+                ))
+
+            </div>
+        </div>
+    </div>
+    <footer class="section footer-classic context-dark">
+        @await Html.PartialAsync("Partial/FooterPartial")
+    </footer>
+    <div class="snackbars" id="form-output-global"></div>
+    <script src="~/js/core.min.js"></script>
+    <script src="~/js/script.js"></script>
+    <!--coded by dyoma-->
+    <script>
+        let currentPosition = 0;
+
+        function moveLayout(direction) {
+          const layoutList = document.querySelector('.layouts-list');
+          const totalItems = document.querySelectorAll('.layouts-list li').length;
+          const itemWidth = document.querySelector('.layouts-list li').offsetWidth + 20; // Chiều rộng mỗi item + khoảng cách giữa các item
+
+          // Kiểm tra hướng di chuyển
+          if (direction === 'left') {
+            currentPosition--;
+            if (currentPosition < 0) {
+              currentPosition = totalItems - 1; // Về cuối nếu ra ngoài bên trái
+            }
+          } else if (direction === 'right') {
+            currentPosition++;
+            if (currentPosition >= totalItems) {
+              currentPosition = 0; // Về đầu nếu ra ngoài bên phải
+            }
+          }
+
+          // Áp dụng chuyển động
+          layoutList.style.transform = `translateX(-${currentPosition * itemWidth}px)`;
+        }
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          var swiper = new Swiper(".swiper", {
+            slidesPerView: 6,
+            spaceBetween: 20, // Khoảng cách giữa các item
+
+            loop: true,
+            slidesOffsetBefore: 20, // Khoảng cách bên trái
+            slidesOffsetAfter: 20, // Cuộn vô hạn
+            grabCursor: true, // Dùng chuột kéo
+            centeredSlides: true, // Căn giữa item
+
+            pagination: {
+              el: ".swiper-pagination",
+              clickable: true,
+            },
+            breakpoints: {
+              768: { slidesPerView: 2 },
+              480: { slidesPerView: 1 },
+            },
+          });
+        });
+    </script>
+    
+    @inject Microsoft.AspNetCore.Antiforgery.IAntiforgery antiforgery
+    <script>
+        $(document).ready(function () {
+            var token = '@antiforgery.GetAndStoreTokens(HttpContext).RequestToken';
+
+            $('.toggle-favorite').click(function (e) {
+                e.preventDefault();
+
+                var btn = $(this);
+                var icon = btn.find('i');
+                var artistId = btn.data('artist-id');
+
+                $.ajax({
+                    url: '/Favorites/Toggle',
+                    type: 'POST',
+                    headers: {
+                        'RequestVerificationToken': token
+                    },
+                    data: { artistId: artistId },
+                    success: function () {
+                        icon.toggleClass('favorite-active');
+                    },
+                    error: function (xhr, status, error) {
+                        alert("Lỗi khi xử lý yêu thích.");
+                    }
+                });
+            });
+        });
+    </script>
+    
+</body>
+
+</html>
