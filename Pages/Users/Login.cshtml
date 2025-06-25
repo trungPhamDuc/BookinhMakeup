@@ -8,14 +8,14 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Login - Blush & Brush</title>
+    <title>Đăng Nhập - Blush & Brush</title>
     <link rel="stylesheet" href="~/css/auth.css" />
 </head>
 <body>
     <div class="login-wrapper">
         <div class="login-container">
             <img src="~/images/logo.png" alt="Logo" class="logo" />
-            <h2>Login</h2>
+            <h2>Đăng Nhập</h2>
 
             <form method="post" class="login-form">
                 <div class="form-group">
@@ -24,13 +24,15 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Password:</label>
+                    <label>Mật Khẩu:</label>
                     <input asp-for="Password" type="password" class="form-control" />
                 </div>
 
-                <button type="submit" class="btn-login">Login</button>
+                <button type="submit" class="btn-login">Đăng Nhập</button>
             </form>
-
+            <p class="register-link">
+                Chưa có tài khoản? <a href="/Users/Register">Đăng ký ngay</a>
+            </p>
             @if (!string.IsNullOrEmpty(Model.ErrorMessage))
             {
                 <p class="error-message">@Model.ErrorMessage</p>

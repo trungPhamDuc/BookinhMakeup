@@ -54,8 +54,11 @@ namespace www_Blush_Brush.Pages.Users
                 Email = Email,
                 Phone = Phone,
                 Password = Password, 
-                Role = "customer"
+                Role = "customer",
+                IsNew = true
             };
+            
+            
 
             await _userService.RegisterUserAsync(newUser);
             Message = "Registration successful!";

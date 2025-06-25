@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using www_Blush_Brush.Models;
 using www_Blush_Brush.Services;
@@ -36,6 +36,20 @@ namespace www_Blush_Brush.Pages.Users
             HttpContext.Session.SetString("UserRole", user.Role);
             HttpContext.Session.SetString("UserName", user.Name);
             HttpContext.Session.SetString("userId", user.Id.ToString());
+
+            // Kiểm tra điều kiện voucher cho user mới
+            if (user.IsNew == true)
+            {
+                var validVoucher = user.Vouchers.FirstOrDefault(v => v.IsUsed == false && v.EndDate > DateTime.Now);
+                if (validVoucher != null)
+                {
+                    TempData["ShowWelcomeVoucher"] = true;
+                    TempData["VoucherValue"] =  string.Format("{0:N0}", validVoucher.Value);
+                    TempData["VoucherEndDate"] = validVoucher.EndDate.ToString("dd/MM/yyyy");
+                }
+                _userService.UpdateUserIsNewAsync(user.Id, false);
+            }
+
             switch (user.Role)
             {
                 case "admin":

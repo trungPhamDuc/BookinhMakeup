@@ -50,8 +50,8 @@ namespace www_Blush_Brush.Pages.Users.Memberships
 
             var orderCode = DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString();
             string description = "Thanh toán thẻ thành viên";
-            string returnUrl = $"http://localhost:5036/Users/Memberships/View?userId={userId}";
-            string cancelUrl = $"http://localhost:5036/Users/Memberships/View?userId={userId}";
+            string returnUrl = $"https://blushbrush-001-site1.ktempurl.com/Users/Memberships/View?userId={userId}";
+            string cancelUrl = $"https://blushbrush-001-site1.ktempurl.com/Users/Memberships/View?userId={userId}";
             int amount = 0;
             if (MembershipType == "VIP-Makeup-Artist")
             {
@@ -64,7 +64,7 @@ namespace www_Blush_Brush.Pages.Users.Memberships
                 int amountTest = 5000;
             string signature = PayOSHelper.GeneratePayOSSignature(new Dictionary<string, string>
             {
-                { "amount", amountTest.ToString() },
+                { "amount", amount.ToString() },
                 { "cancelUrl", cancelUrl },
                 { "description", description },
                 { "orderCode", orderCode },
@@ -74,7 +74,7 @@ namespace www_Blush_Brush.Pages.Users.Memberships
             var payload = new
             {
                 orderCode = long.Parse(orderCode),
-                amount = amountTest,
+                amount = amount,
                 description,
                 returnUrl,
                 cancelUrl,
