@@ -20,20 +20,20 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Home/View">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Home/View">Trang Chủ</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Điều Lệ</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav">
                         @if (Context.Session.GetString("UserEmail") == null)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Users/Login">Login</a>
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Users/Login">Đăng Nhập</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Users/Register">Register</a>
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Users/Register">Đăng Kí</a>
                             </li>
                         }
                         else
@@ -42,7 +42,7 @@
                                 <a class="nav-link text-dark" asp-area="" asp-page="/Users/Profile">@Context.Session.GetString("UserName")</a>                 
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Users/Logout">Logout</a>
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Users/Logout">Đăng xuất</a>
                             </li>
                         }
                     </ul>
@@ -56,11 +56,6 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 -Blush_Brush - <a asp-area="" asp-page="/Privacy">Privacy</a>
-        </div>
-    </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
